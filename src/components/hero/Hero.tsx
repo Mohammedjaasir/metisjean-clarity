@@ -43,7 +43,7 @@ export function Hero() {
         <Navbar />
 
         <div className="grid flex-1 grid-cols-1 items-stretch gap-8 px-6 pt-4 pb-10 md:grid-cols-[minmax(0,45fr)_minmax(0,55fr)] md:gap-4 md:px-12 md:pb-14 lg:px-20">
-          <div className="order-2 flex h-full flex-col justify-center gap-16 md:order-1 md:justify-between md:gap-8 md:pt-[12vh] md:pb-[4vh]">
+          <div className="order-1 flex h-full flex-col justify-center gap-16 md:order-1 md:justify-between md:gap-8 md:pt-[12vh] md:pb-[4vh]">
             <div>
             <h1 className="max-w-[560px] text-[38px] font-light leading-[1.14] tracking-[-0.025em] text-ink sm:text-[48px] md:text-[58px] lg:text-[66px]">
 
@@ -112,7 +112,7 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="order-1 h-[300px] w-full sm:h-[420px] md:order-2 md:h-auto md:min-h-[460px]">
+          <div className="order-2 h-[300px] w-full sm:h-[420px] md:order-2 md:h-auto md:min-h-[460px]">
             <ParticleField variant={index} />
           </div>
         </div>
