@@ -30,7 +30,7 @@ export function StripeDecoration({
           <motion.span
             key={i}
             initial={animate ? { opacity: 0, x: origin === "left" ? -40 : 40 } : false}
-            whileInView={animate ? { opacity: 1, x: 0 } : undefined}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.7, delay: step * 0.06, ease: [0.22, 1, 0.36, 1] }}
             className="stripe-angle block h-full w-[10px] shrink-0 md:w-[14px]"
