@@ -87,9 +87,10 @@ export function Hero() {
                 </button>
               ))}
             </div>
+            </div>
 
-            <div className="mt-14 grid grid-cols-2 gap-8 md:pt-10 md:max-w-[520px]">
-              <div>
+            <div className="mt-14 grid grid-cols-2 gap-8 md:mt-0 md:max-w-[520px]">
+
                 <p className="label-xs">Thoughts</p>
                 <a
                   href="#insights"
