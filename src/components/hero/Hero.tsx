@@ -90,6 +90,7 @@ export function Hero() {
             </div>
 
             <div className="mt-14 grid grid-cols-2 gap-8 md:mt-0 md:max-w-[520px]">
+              <div>
 
                 <p className="label-xs">Thoughts</p>
                 <a
