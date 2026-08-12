@@ -43,7 +43,7 @@ export function Hero() {
         <Navbar />
 
         <div className="grid flex-1 grid-cols-1 items-stretch gap-8 px-6 pt-4 pb-10 md:grid-cols-[minmax(0,45fr)_minmax(0,55fr)] md:gap-4 md:px-12 md:pb-14 lg:px-20">
-          <div className="order-2 flex h-full flex-col justify-center md:order-1">
+          <div className="order-2 flex h-full flex-col justify-center md:justify-between md:pt-[10vh] md:pb-[6vh] md:order-1">
             <h1 className="max-w-[560px] text-[38px] font-light leading-[1.14] tracking-[-0.025em] text-ink sm:text-[48px] md:text-[58px] lg:text-[66px]">
               <AnimatePresence mode="wait">
                 <motion.span
@@ -86,7 +86,7 @@ export function Hero() {
               ))}
             </div>
 
-            <div className="mt-14 grid grid-cols-2 gap-8 md:mt-auto md:pt-24 md:max-w-[520px]">
+            <div className="mt-14 grid grid-cols-2 gap-8 md:pt-10 md:max-w-[520px]">
               <div>
                 <p className="label-xs">Thoughts</p>
                 <a
