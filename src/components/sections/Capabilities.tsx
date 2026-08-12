@@ -43,7 +43,12 @@ export function Capabilities() {
 
           <Reveal delay={0.12} className="relative">
             <div className="relative aspect-[4/3] overflow-hidden">
-              <motionSafeImage />
+              <img
+                src={collab.url}
+                alt="A team collaborating around a table with laptops and notebooks"
+                loading="lazy"
+                className="size-full object-cover"
+              />
             </div>
             <StripeDecoration
               count={4}
@@ -70,16 +75,5 @@ export function Capabilities() {
         </ul>
       </div>
     </section>
-  );
-}
-
-function motionSafeImage() {
-  return (
-    <img
-      src={collab.url}
-      alt="A team collaborating around a table with laptops and notebooks"
-      loading="lazy"
-      className="size-full object-cover"
-    />
   );
 }
