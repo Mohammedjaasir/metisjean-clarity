@@ -39,11 +39,11 @@ export function Hero() {
 
   return (
     <div id="top" className="px-3 pt-3 pb-6 md:px-[3vw] md:pt-[2vh]">
-      <div className="mx-auto w-full max-w-[1450px] rounded-[24px] border border-hairline bg-panel md:min-h-[88vh] md:rounded-[38px]">
+      <div className="mx-auto w-full max-w-[1450px] rounded-[24px] border border-hairline flex flex-col bg-panel md:min-h-[88vh] md:rounded-[38px]">
         <Navbar />
 
-        <div className="grid grid-cols-1 items-center gap-8 px-6 pt-6 pb-12 md:grid-cols-[minmax(0,45fr)_minmax(0,55fr)] md:gap-4 md:px-12 md:pb-16 lg:px-20">
-          <div className="order-2 md:order-1">
+        <div className="grid flex-1 grid-cols-1 items-center gap-8 px-6 pt-4 pb-10 md:grid-cols-[minmax(0,45fr)_minmax(0,55fr)] md:gap-4 md:px-12 md:pb-14 lg:px-20">
+          <div className="order-2 flex h-full flex-col justify-center md:order-1">
             <h1 className="max-w-[560px] text-[38px] font-light leading-[1.14] tracking-[-0.025em] text-ink sm:text-[48px] md:text-[58px] lg:text-[66px]">
               <AnimatePresence mode="wait">
                 <motion.span
@@ -86,7 +86,7 @@ export function Hero() {
               ))}
             </div>
 
-            <div className="mt-14 grid grid-cols-2 gap-8 md:mt-24 md:max-w-[520px]">
+            <div className="mt-14 grid grid-cols-2 gap-8 md:mt-auto md:pt-24 md:max-w-[520px]">
               <div>
                 <p className="label-xs">Thoughts</p>
                 <a

@@ -37,7 +37,7 @@ export function Values() {
                 <h3 className="mt-4 text-[22px] font-medium tracking-[-0.02em] text-ink md:text-[30px]">
                   {v.title}
                 </h3>
-                <span className="mt-6 block h-px w-24 bg-brand" />
+                <span className="mt-6 block h-[3px] w-24 bg-brand" />
                 <p className="mt-6 text-[16px] leading-[1.7] text-muted-foreground md:text-[19px]">
                   {v.body}
                 </p>
