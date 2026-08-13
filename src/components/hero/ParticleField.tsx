@@ -57,7 +57,7 @@ function StaticFallback() {
   return (
     <svg viewBox="0 0 100 100" className="h-full w-full" role="img" aria-label="MetisJean data field">
       {points.map((p, i) => (
-        <circle key={i} cx={p.x} cy={p.y} r={p.s} fill="#0b90f4" opacity={p.o} />
+        <circle key={i} cx={p.x} cy={p.y} r={p.s} fill="#0a3f70" opacity={p.o} />
       ))}
     </svg>
   );
@@ -144,11 +144,11 @@ export function ParticleField({ variant = 0 }: { variant?: number }) {
 
       const positions = new Float32Array(base);
       const colors = new Float32Array(COUNT * 3);
-      const brand = new THREE.Color("#0a6fbd");
-      const deep = new THREE.Color("#0b1f45");
+      const brand = new THREE.Color("#0a3f70");
+      const deep = new THREE.Color("#04102a");
       for (let i = 0; i < COUNT; i++) {
         const mix = seeds[i]!;
-        const c = deep.clone().lerp(brand, 0.2 + 0.6 * mix);
+        const c = deep.clone().lerp(brand, 0.1 + 0.5 * mix);
         colors[i * 3] = c.r;
         colors[i * 3 + 1] = c.g;
         colors[i * 3 + 2] = c.b;
@@ -162,7 +162,7 @@ export function ParticleField({ variant = 0 }: { variant?: number }) {
         size: isMobile ? 0.032 : 0.026,
         vertexColors: true,
         transparent: true,
-        opacity: 0.92,
+        opacity: 1,
         sizeAttenuation: true,
         depthWrite: false,
       });
