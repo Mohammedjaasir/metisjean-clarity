@@ -34,6 +34,7 @@ function Index() {
       <Hero />
       <main>
         <BrandIntroduction />
+        <ArcShowcase />
         <MissionVision />
         <Values />
         <Philosophy />
