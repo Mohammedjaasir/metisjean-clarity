@@ -144,11 +144,11 @@ export function ParticleField({ variant = 0 }: { variant?: number }) {
 
       const positions = new Float32Array(base);
       const colors = new Float32Array(COUNT * 3);
-      const brand = new THREE.Color("#0b90f4");
-      const deep = new THREE.Color("#1b3f7a");
+      const brand = new THREE.Color("#0a6fbd");
+      const deep = new THREE.Color("#0b1f45");
       for (let i = 0; i < COUNT; i++) {
         const mix = seeds[i]!;
-        const c = deep.clone().lerp(brand, 0.35 + 0.65 * mix);
+        const c = deep.clone().lerp(brand, 0.2 + 0.6 * mix);
         colors[i * 3] = c.r;
         colors[i * 3 + 1] = c.g;
         colors[i * 3 + 2] = c.b;
@@ -162,7 +162,7 @@ export function ParticleField({ variant = 0 }: { variant?: number }) {
         size: isMobile ? 0.032 : 0.026,
         vertexColors: true,
         transparent: true,
-        opacity: 0.78,
+        opacity: 0.92,
         sizeAttenuation: true,
         depthWrite: false,
       });
