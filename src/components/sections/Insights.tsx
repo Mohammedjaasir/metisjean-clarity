@@ -1,6 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "../Reveal";
-import workshop from "@/assets/team-workshop.jpg.asset.json";
+import workshop from "@/assets/team-workshop.jpg";
 
 const ITEMS = [
   {
@@ -44,7 +44,7 @@ export function Insights() {
           <Reveal delay={0.12}>
             <div className="aspect-[16/10] overflow-hidden md:-mr-[8vw]">
               <img
-                src={workshop.url}
+                src={workshop}
                 alt="Colleagues in a bright meeting room working through a problem together"
                 loading="lazy"
                 className="size-full object-cover"

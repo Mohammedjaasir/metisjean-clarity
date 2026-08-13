@@ -1,6 +1,6 @@
 import { Reveal } from "../Reveal";
 import { StripeDecoration } from "../brand/StripeDecoration";
-import collab from "@/assets/collab-table.jpg.asset.json";
+import collab from "@/assets/collab-table.jpg";
 
 const CAPABILITIES = [
   {
@@ -44,7 +44,7 @@ export function Capabilities() {
           <Reveal delay={0.12} className="relative">
             <div className="relative aspect-[4/3] overflow-hidden">
               <img
-                src={collab.url}
+                src={collab}
                 alt="A team collaborating around a table with laptops and notebooks"
                 loading="lazy"
                 className="size-full object-cover"

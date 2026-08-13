@@ -1,22 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 
-import a1 from "@/assets/gallery/mj-1.jpg.asset.json";
-import a2 from "@/assets/gallery/mj-2.jpg.asset.json";
-import a3 from "@/assets/gallery/mj-3.jpg.asset.json";
-import a4 from "@/assets/gallery/mj-4.jpg.asset.json";
-import a5 from "@/assets/gallery/mj-5.jpg.asset.json";
-import a6 from "@/assets/gallery/mj-6.jpg.asset.json";
-import a7 from "@/assets/gallery/mj-7.jpg.asset.json";
+import { ARC_GALLERY_ITEMS } from "@/components/hero/arcGalleryData";
+import { ArcGalleryModal } from "@/components/hero/ArcGalleryModal";
 
-const IMAGES = [
-  { src: a1.url, alt: "A diverse team collaborating around a table in a modern office" },
-  { src: a2.url, alt: "An executive reviewing data on a tablet by a window" },
-  { src: a3.url, alt: "Abstract blue line visualisation of connected data" },
-  { src: a4.url, alt: "Two colleagues mapping a system on a glass whiteboard" },
-  { src: a5.url, alt: "Hands writing notes beside a laptop in natural light" },
-  { src: a6.url, alt: "Daylight falling through a modern glass office corridor" },
-  { src: a7.url, alt: "A person walking through a bright minimal lobby" },
-];
+const IMAGES = ARC_GALLERY_ITEMS;
 
 /** Duration of one full traversal of the arc, in ms. */
 const CYCLE = 34000;
@@ -24,10 +12,16 @@ const CYCLE = 34000;
 /**
  * Continuous curved image wall. Cards travel along a wide arc, rotating and
  * scaling as they pass the centre — choreographed, seamless, GPU-only.
+ *
+ * Clicking a card freezes the arc in place (isPaused) and expands that card,
+ * via a shared `layoutId`, into a full project-viewer modal. Closing the
+ * modal resumes the arc from the same elapsed offset rather than restarting.
  */
 export function ArcGallery() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const isPaused = activeIndex !== null;
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -35,13 +29,15 @@ export function ArcGallery() {
     if (!wrap) return;
 
     let raf = 0;
+    let frozenAt: number | null = null;
     const start = performance.now();
     const n = IMAGES.length;
 
     const layout = (now: number) => {
       const w = wrap.clientWidth;
       const h = wrap.clientHeight;
-      const elapsed = reduced ? CYCLE * 0.5 : now - start;
+      const clock = isPaused ? (frozenAt ??= now) : now;
+      const elapsed = reduced ? CYCLE * 0.5 : clock - start;
       const t = (elapsed % CYCLE) / CYCLE;
 
       // Arc geometry: cards sit lower and tilt more the further they are from centre.
@@ -54,7 +50,7 @@ export function ArcGallery() {
         if (!el) continue;
 
         let p = (t + i / n) % 1; // 0 → 1 travel from left to right
-        p = (p * 1.3) - 0.15; // overscan so cards enter/leave clipped
+        p = p * 1.3 - 0.15; // overscan so cards enter/leave clipped
 
         const theta = (p - 0.5) * spread * Math.PI;
         const x = p * w;
@@ -69,7 +65,7 @@ export function ArcGallery() {
         el.style.zIndex = String(10 + Math.round(centreness * 20));
       }
 
-      if (!reduced) raf = requestAnimationFrame(layout);
+      if (!reduced && !isPaused) raf = requestAnimationFrame(layout);
     };
 
     raf = requestAnimationFrame(layout);
@@ -79,7 +75,10 @@ export function ArcGallery() {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
     };
-  }, []);
+  }, [isPaused]);
+
+  const openAt = (i: number) => setActiveIndex(i);
+  const close = () => setActiveIndex(null);
 
   return (
     <div
@@ -95,17 +94,40 @@ export function ArcGallery() {
           ref={(el) => {
             cardRefs.current[i] = el;
           }}
-          className="absolute top-[6%] left-0 h-[62%] w-[38vw] max-w-[290px] min-w-[150px] overflow-hidden rounded-[18px] bg-white/5 will-change-transform sm:h-[72%] md:rounded-[22px]"
+          className="absolute top-[6%] left-0 h-[62%] w-[38vw] max-w-[290px] min-w-[150px] will-change-transform"
           style={{ transform: "translate3d(-9999px,0,0)" }}
         >
-          <img
-            src={img.src}
-            alt={img.alt}
-            loading={i < 3 ? "eager" : "lazy"}
-            width={768}
-            height={1024}
-            className="h-full w-full object-cover"
-          />
+          <motion.div
+            layoutId={`arc-gallery-card-${i}`}
+            className="group h-full w-full cursor-pointer overflow-hidden rounded-[18px] bg-white/5 md:rounded-[22px]"
+            style={{ visibility: activeIndex === i ? "hidden" : "visible" }}
+            whileHover={{ scale: 1.035 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            onClick={() => openAt(i)}
+            tabIndex={0}
+            role="button"
+            aria-label={`View project: ${img.title}`}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openAt(i);
+              }
+            }}
+          >
+            <img
+              src={img.src}
+              alt={img.alt}
+              loading={i < 3 ? "eager" : "lazy"}
+              width={768}
+              height={1024}
+              className="h-full w-full object-cover brightness-100 transition-[filter] duration-300 group-hover:brightness-110"
+            />
+            <div className="pointer-events-none absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <span className="label-xs mb-4 flex items-center gap-1.5 text-white">
+                View project <span aria-hidden="true">&rarr;</span>
+              </span>
+            </div>
+          </motion.div>
         </div>
       ))}
 
@@ -118,6 +140,17 @@ export function ArcGallery() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black to-transparent"
       />
+
+      <AnimatePresence>
+        {activeIndex !== null ? (
+          <ArcGalleryModal
+            items={IMAGES}
+            activeIndex={activeIndex}
+            onClose={close}
+            onNavigate={setActiveIndex}
+          />
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/hero/Hero";
+import { TypographicJourney } from "@/components/sections/TypographicJourney";
 import { BrandIntroduction } from "@/components/sections/BrandIntroduction";
 import { ArcShowcase } from "@/components/sections/ArcShowcase";
 import { MissionVision } from "@/components/sections/MissionVision";
@@ -7,6 +8,7 @@ import { Values } from "@/components/sections/Values";
 import { Philosophy } from "@/components/sections/Philosophy";
 import { Capabilities } from "@/components/sections/Capabilities";
 import { Insights } from "@/components/sections/Insights";
+import { IntelligentSystemSection } from "@/components/sections/IntelligentSystemSection";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/Footer";
 
@@ -32,6 +34,7 @@ function Index() {
   return (
     <>
       <Hero />
+      <TypographicJourney />
       <main>
         <BrandIntroduction />
         <ArcShowcase />
@@ -40,6 +43,7 @@ function Index() {
         <Philosophy />
         <Capabilities />
         <Insights />
+        <IntelligentSystemSection />
         <Contact />
       </main>
       <Footer />
