@@ -1,10 +1,12 @@
-import { motion } from "motion/react";
 import type { ReactNode } from "react";
 
+/**
+ * Static wrapper — kept as a drop-in for the layout call sites that used to
+ * animate content into view on scroll. Renders its children in their final
+ * state immediately; no motion, no scroll-triggered reveal.
+ */
 export function Reveal({
   children,
-  delay = 0,
-  y = 24,
   className = "",
   as = "div",
 }: {
@@ -14,16 +16,6 @@ export function Reveal({
   className?: string;
   as?: "div" | "span" | "li";
 }) {
-  const MotionTag = motion[as];
-  return (
-    <MotionTag
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-12%" }}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={className}
-    >
-      {children}
-    </MotionTag>
-  );
+  const Tag = as;
+  return <Tag className={className}>{children}</Tag>;
 }

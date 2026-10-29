@@ -1,14 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/hero/Hero";
-import { TypographicJourney } from "@/components/sections/TypographicJourney";
 import { BrandIntroduction } from "@/components/sections/BrandIntroduction";
-import { ArcShowcase } from "@/components/sections/ArcShowcase";
 import { MissionVision } from "@/components/sections/MissionVision";
-import { Values } from "@/components/sections/Values";
-import { Philosophy } from "@/components/sections/Philosophy";
 import { Capabilities } from "@/components/sections/Capabilities";
+import { Process } from "@/components/sections/Process";
+import { Philosophy } from "@/components/sections/Philosophy";
+import { Values } from "@/components/sections/Values";
 import { Insights } from "@/components/sections/Insights";
-import { IntelligentSystemSection } from "@/components/sections/IntelligentSystemSection";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/Footer";
 
@@ -34,16 +32,14 @@ function Index() {
   return (
     <>
       <Hero />
-      <TypographicJourney />
       <main>
         <BrandIntroduction />
-        <ArcShowcase />
         <MissionVision />
-        <Values />
-        <Philosophy />
         <Capabilities />
+        <Process />
+        <Philosophy />
+        <Values />
         <Insights />
-        <IntelligentSystemSection />
         <Contact />
       </main>
       <Footer />
